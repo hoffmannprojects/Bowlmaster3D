@@ -45,5 +45,7 @@ ehthumbs.db
 [Tt]humbs.db
 [Dd]esktop.ini
 
-
-
+# ====== #
+# Custom #
+# ======= #
+/00_CourseDownloads/
