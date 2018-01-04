@@ -21,6 +21,7 @@ sysinfo.txt
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
+/.vs/
 ExportedObj/
 *.csproj
 *.unityproj
