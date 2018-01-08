@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Ball : MonoBehaviour {
-    //public float launchSpeed;
-    //public Vector3 launchVelocity;
-
+    private bool inPlay = false;
     private Rigidbody rb;
     private AudioSource audioSource;
 
@@ -16,7 +14,6 @@ public class Ball : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
 
         rb.useGravity = false;
-        //Launch(launchVelocity);
     }
 
     public void Launch(Vector3 force)
@@ -25,6 +22,15 @@ public class Ball : MonoBehaviour {
         rb.AddForce(force, ForceMode.Impulse);
 
         audioSource.Play();
+
+        inPlay = true;
+    }
+
+    void MoveStart(float xNudgeAmount) {
+        if (! inPlay) {
+            transform.Translate (new Vector3 (xNudgeAmount, 0, 0) ); // Nudge position by xNudgeAmount x-wise.
+            Debug.Log("startPosition: " + transform.position.x);
+        }
     }
 
     // Update is called once per frame
