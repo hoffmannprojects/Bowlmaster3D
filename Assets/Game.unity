@@ -163,7 +163,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 487247936}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 648852565}
   - component: {fileID: 648852564}
   m_Layer: 5
-  m_Name: Text
+  m_Name: PinCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
