@@ -7,8 +7,7 @@ public class Pin : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log (name + " is standing = " + IsStanding () + " delta tilt in x = " + Mathf.DeltaAngle (transform.eulerAngles.x, 0) + " delta tilt in z = " + Mathf.DeltaAngle (transform.eulerAngles.z, 0));
-        print (Mathf.DeltaAngle (-610, 0));
+        // Debug.Log (name + " is standing = " + IsStanding () + " delta tilt in x = " + Mathf.DeltaAngle (transform.eulerAngles.x, 0) + " delta tilt in z = " + Mathf.DeltaAngle (transform.eulerAngles.z, 0));
     }
 	
     public bool IsStanding () {
