@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44992727, g: 0.49727023, b: 0.5609727, a: 1}
+  m_IndirectSpecularColor: {r: 0.4499033, g: 0.49725002, b: 0.5609612, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a101d4eee1e42d89aebb9df2a732eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastStandingCount: -1
 --- !u!65 &487247939
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -931,7 +932,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1145798978}
   m_Layer: 0
-  m_Name: Testing Borders
+  m_Name: Playtesting Borders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
