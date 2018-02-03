@@ -5,40 +5,35 @@ using UnityEngine.UI;
 
 public class PinSetter : MonoBehaviour
 {
-    public int lastStandingCount = -1;
-
+    private int lastStandingCount;
     private bool ballEnteredBox = false;
     private Text pinCounterDisplay;
+    private Ball ball;
 
     // Use this for initialization
     void Start()
     {
         pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
+        lastStandingCount = CountStanding();
+        ball = GameObject.FindObjectOfType<Ball>();
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        CountStanding();
-
         if (ballEnteredBox) 
         {
-            CheckStandingCount();
+            StartCoroutine(CheckStandingCount());
         }
     }
 
-    void CheckStandingCount()
+    IEnumerator CheckStandingCount()
     {
         // Update lastStandingCount
         lastStandingCount = CountStanding();
 
-        // Call PinsHaveSettled() when the have after 3 seconds.
-        StartCoroutine (WaitToUpdateCount ());
-    }
-
-    IEnumerator WaitToUpdateCount()
-    {
+        // Call PinsHaveSettled() when they have after 3 seconds.
         yield return new WaitForSecondsRealtime (3);
         if (lastStandingCount == CountStanding())
         {
@@ -49,6 +44,8 @@ public class PinSetter : MonoBehaviour
     void PinsHaveSettled()
     {
         pinCounterDisplay.color = Color.green;
+        ballEnteredBox = false;
+        ball.Reset();
     }
 
     void OnTriggerEnter(Collider otherCollider)
@@ -68,7 +65,6 @@ public class PinSetter : MonoBehaviour
         // Check for presence of Pin script on parent, because of Pin setup in hierarchy. 
         if (otherCollider.GetComponentInParent<Pin>())
         {
-            print("Pin left Pinsetter");
             Destroy(otherCollider.GetComponentInParent<Pin>().gameObject);
         }
     }
