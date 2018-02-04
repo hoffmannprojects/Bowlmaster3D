@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 487247937}
   - component: {fileID: 487247940}
   - component: {fileID: 487247939}
+  - component: {fileID: 487247941}
   - component: {fileID: 487247938}
   m_Layer: 0
   m_Name: PinSetter
@@ -137,12 +138,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 487247936}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 60, z: 1870}
   m_LocalScale: {x: 120, y: 120, z: 250}
-  m_Children: []
-  m_Father: {fileID: 835456962}
-  m_RootOrder: 2
+  m_Children:
+  - {fileID: 1656677372}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &487247938
 MonoBehaviour:
@@ -155,7 +157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a101d4eee1e42d89aebb9df2a732eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastStandingCount: -1
 --- !u!65 &487247939
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -175,6 +176,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 487247936}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &487247941
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487247936}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 81ac7ef6ba229e644a3dcedf6ce621f9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &645836036
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,11 +752,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1481085072}
-  - {fileID: 1656677372}
-  - {fileID: 487247937}
   - {fileID: 1145798978}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &987941268
 GameObject:
@@ -951,7 +967,7 @@ Transform:
   - {fileID: 987941269}
   - {fileID: 777378281}
   m_Father: {fileID: 835456962}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1209834188
 GameObject:
@@ -1288,7 +1304,6 @@ GameObject:
   - component: {fileID: 1656677374}
   - component: {fileID: 1656677377}
   - component: {fileID: 1656677373}
-  - component: {fileID: 1656677376}
   m_Layer: 0
   m_Name: Swiper
   m_TagString: Untagged
@@ -1303,11 +1318,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1656677371}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 80, z: 1750}
-  m_LocalScale: {x: 105, y: 30, z: 10}
+  m_LocalPosition: {x: 0, y: 0.16666667, z: -0.48000002}
+  m_LocalScale: {x: 0.87500006, y: 0.25, z: 0.040000003}
   m_Children: []
-  m_Father: {fileID: 835456962}
-  m_RootOrder: 1
+  m_Father: {fileID: 487247937}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1656677373
 MeshRenderer:
@@ -1362,23 +1377,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1656677371}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!95 &1656677376
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1656677371}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5096c45875f7f4e4496a5c25cdd65959, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!54 &1656677377
 Rigidbody:
   m_ObjectHideFlags: 0
