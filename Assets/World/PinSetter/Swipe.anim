@@ -19,50 +19,62 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: {x: 0, y: 80, z: 1750}
+        value: {x: 0, y: -70, z: -140}
         inSlope: {x: 0, y: -1.147384, z: 0}
         outSlope: {x: 0, y: -1.147384, z: 0}
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.1666666
-        value: {x: 0, y: 17.5, z: 1807.1805}
-        inSlope: {x: 0, y: 0, z: 91.48888}
-        outSlope: {x: 0, y: 0, z: 91.48888}
+        time: 1
+        value: {x: 0, y: -132.5, z: -90.5027}
+        inSlope: {x: 0, y: 0, z: 89.68963}
+        outSlope: {x: 0, y: 0, z: 89.68963}
         tangentMode: 0
       - serializedVersion: 2
-        time: 2.5
-        value: {x: 0, y: 17.5, z: 1993.3538}
+        time: 1.0833334
+        value: {x: 0, y: -132.5, z: -82.81946}
+        inSlope: {x: 0, y: 0, z: 94.643654}
+        outSlope: {x: 0, y: 0, z: 94.643654}
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 2.4166667
+        value: {x: 0, y: -132.5, z: 123.91102}
         inSlope: {x: 0, y: 0, z: 27.100494}
         outSlope: {x: 0, y: 0, z: 27.100494}
         tangentMode: 0
       - serializedVersion: 2
-        time: 2.9833333
-        value: {x: 0, y: 17.5, z: 1976.1915}
-        inSlope: {x: 0, y: 0, z: -98.443665}
-        outSlope: {x: 0, y: 0, z: -98.443665}
+        time: 2.9166667
+        value: {x: 0, y: -132.5, z: 86.19153}
+        inSlope: {x: 0, y: 0, z: -138.08824}
+        outSlope: {x: 0, y: 0, z: -138.08824}
         tangentMode: 0
       - serializedVersion: 2
-        time: 4.1666665
-        value: {x: 0, y: 17.5, z: 1814.0577}
-        inSlope: {x: 0, y: -0.016021537, z: -132.2444}
-        outSlope: {x: 0, y: -0.016021537, z: -132.2444}
+        time: 4
+        value: {x: 0, y: -132.5, z: -72.433914}
+        inSlope: {x: 0, y: -0.016021537, z: -128.90904}
+        outSlope: {x: 0, y: -0.016021537, z: -128.90904}
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 4.666667
+        value: {x: 0, y: -82.282486, z: -134.05669}
+        inSlope: {x: 0, y: 102.14549, z: -46.169914}
+        outSlope: {x: 0, y: 102.14549, z: -46.169914}
         tangentMode: 0
       - serializedVersion: 2
         time: 4.8333335
-        value: {x: 0, y: 67.717514, z: 1753.1355}
-        inSlope: {x: 0, y: 102.14549, z: -36.766033}
-        outSlope: {x: 0, y: 102.14549, z: -36.766033}
+        value: {x: 0, y: -70, z: -139.31413}
+        inSlope: {x: 0, y: 0, z: -16.307753}
+        outSlope: {x: 0, y: 0, z: -16.307753}
         tangentMode: 0
       - serializedVersion: 2
-        time: 5
-        value: {x: 0, y: 80, z: 1750}
+        time: 4.916667
+        value: {x: 0, y: -70, z: -140}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: 
+    path: Swiper
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
@@ -74,7 +86,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
+      path: 3295983630
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -86,7 +98,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 5
+    m_StopTime: 4.916667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -107,31 +119,31 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 80
+        value: -70
         inSlope: -1.147384
         outSlope: -1.147384
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.1666666
-        value: 17.5
+        time: 1
+        value: -132.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 4.1666665
-        value: 17.5
+        time: 4
+        value: -132.5
         inSlope: -0.016021537
         outSlope: -0.016021537
         tangentMode: 0
       - serializedVersion: 2
-        time: 4.8333335
-        value: 67.717514
+        time: 4.666667
+        value: -82.282486
         inSlope: 102.14549
         outSlope: 102.14549
         tangentMode: 0
       - serializedVersion: 2
-        time: 5
-        value: 80
+        time: 4.8333335
+        value: -70
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -139,7 +151,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: 
+    path: Swiper
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -147,31 +159,31 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 1750
+        value: -140
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 1.1666666
-        value: 1807.1805
-        inSlope: 91.48888
-        outSlope: 91.48888
+        time: 1.0833334
+        value: -82.81946
+        inSlope: 94.643654
+        outSlope: 94.643654
         tangentMode: 136
       - serializedVersion: 2
-        time: 2.5
-        value: 1993.3538
+        time: 2.4166667
+        value: 123.91102
         inSlope: 27.100494
         outSlope: 27.100494
         tangentMode: 0
       - serializedVersion: 2
-        time: 2.9833333
-        value: 1976.1915
-        inSlope: -98.443665
-        outSlope: -98.443665
+        time: 2.9166667
+        value: 86.19153
+        inSlope: -138.08824
+        outSlope: -138.08824
         tangentMode: 0
       - serializedVersion: 2
-        time: 5
-        value: 1750
+        time: 4.916667
+        value: -140
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -179,11 +191,11 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: 
+    path: Swiper
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves: []
-  m_HasGenericRootTransform: 1
+  m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events: []
