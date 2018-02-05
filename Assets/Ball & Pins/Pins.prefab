@@ -1761,6 +1761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standingThreshold: 3
+  distanceToRaise: 40
 --- !u!114 &114108657428437422
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1773,6 +1774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standingThreshold: 3
+  distanceToRaise: 40
 --- !u!114 &114163762048468042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1785,6 +1787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standingThreshold: 3
+  distanceToRaise: 40
 --- !u!114 &114180721100635618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1797,6 +1800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standingThreshold: 3
+  distanceToRaise: 40
 --- !u!114 &114264129841561094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1809,6 +1813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standingThreshold: 3
+  distanceToRaise: 40
 --- !u!114 &114561559763174354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1821,6 +1826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standingThreshold: 3
+  distanceToRaise: 40
 --- !u!114 &114567723917386278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1833,6 +1839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standingThreshold: 3
+  distanceToRaise: 40
 --- !u!114 &114935241361806052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1845,6 +1852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standingThreshold: 3
+  distanceToRaise: 40
 --- !u!114 &114936476072671990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1857,6 +1865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standingThreshold: 3
+  distanceToRaise: 40
 --- !u!114 &114943024434996458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1869,3 +1878,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standingThreshold: 3
+  distanceToRaise: 40

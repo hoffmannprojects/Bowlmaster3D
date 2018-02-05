@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Pin : MonoBehaviour {
     public float standingThreshold = 3f;
+    public float distanceToRaise = 40f;
 
-	// Use this for initialization
-	void Start () {
-        // Debug.Log (name + " is standing = " + IsStanding () + " delta tilt in x = " + Mathf.DeltaAngle (transform.eulerAngles.x, 0) + " delta tilt in z = " + Mathf.DeltaAngle (transform.eulerAngles.z, 0));
+    private Rigidbody myRigidbody;
+
+    // Use this for initialization
+    void Start () {
+        myRigidbody = GetComponent<Rigidbody>();
     }
 	
     public bool IsStanding () {
@@ -21,8 +24,21 @@ public class Pin : MonoBehaviour {
             return true; 
         }
     }
-	// Update is called once per frame
-	void Update () {
 
+    public void RaiseIfStanding ()
+    {
+        if (IsStanding())
+        {
+            myRigidbody.useGravity = false;
+            myRigidbody.isKinematic = true;
+            myRigidbody.MovePosition(transform.position + Vector3.up * distanceToRaise);
+        }
+    }
+
+    public void Lower ()
+    {
+        myRigidbody.MovePosition(transform.position + Vector3.down * distanceToRaise);
+        myRigidbody.useGravity = true;
+        myRigidbody.isKinematic = false;
     }
 }

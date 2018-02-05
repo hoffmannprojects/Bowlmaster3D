@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class PinSetter : MonoBehaviour
 {
-    public float distanceToRaise = 10f;
-
     private int lastStandingCount;
     private bool ballEnteredBox = false;
     private Text pinCounterDisplay;
@@ -98,16 +96,7 @@ public class PinSetter : MonoBehaviour
 
         foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
         {
-            if (currentPin.IsStanding())
-            {
-                Rigidbody pinRigidbody = currentPin.GetComponent<Rigidbody>()
-                    ;
-                // Move pin
-                pinRigidbody.useGravity = false;
-                pinRigidbody.isKinematic = true;
-                pinRigidbody.MovePosition(currentPin.transform.position + Vector3.up * distanceToRaise);
-
-            }
+           currentPin.RaiseIfStanding();
         }
     }
 
@@ -117,16 +106,7 @@ public class PinSetter : MonoBehaviour
 
         foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
         {
-            if (currentPin.IsStanding())
-            {
-                Rigidbody pinRigidbody = currentPin.GetComponent<Rigidbody>()
-                   ;
-
-                // Move pin
-                pinRigidbody.useGravity = true;
-                pinRigidbody.isKinematic = false;
-                pinRigidbody.MovePosition(currentPin.transform.position + Vector3.down * distanceToRaise);
-            }
+            currentPin.Lower();
         }
     }
 
