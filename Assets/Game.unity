@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a101d4eee1e42d89aebb9df2a732eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToRaise: 40
+  pins: {fileID: 1308867999579380, guid: 607fda4408c619c4589f4db8d16cd42d, type: 2}
 --- !u!65 &487247939
 BoxCollider:
   m_ObjectHideFlags: 0

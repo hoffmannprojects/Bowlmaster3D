@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PinSetter : MonoBehaviour
 {
+    public GameObject pins;
+
     private int lastStandingCount;
     private bool ballEnteredBox = false;
     private Text pinCounterDisplay;
@@ -113,5 +115,6 @@ public class PinSetter : MonoBehaviour
     public void RenewPins ()
     {
         Debug.Log("Renewing Pins.");
+        Instantiate(pins, new Vector3(0f, 0f, 1829f), Quaternion.identity);
     }
 }
