@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PinSetter : MonoBehaviour
 {
     public GameObject pins;
+    public float distanceToRaise = 40f;
 
     private int lastStandingCount;
     private bool ballEnteredBox = false;
@@ -98,7 +99,7 @@ public class PinSetter : MonoBehaviour
 
         foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
         {
-           currentPin.RaiseIfStanding();
+           currentPin.RaiseIfStanding(distanceToRaise);
         }
     }
 
@@ -108,13 +109,13 @@ public class PinSetter : MonoBehaviour
 
         foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
         {
-            currentPin.Lower();
+            currentPin.Lower(distanceToRaise);
         }
     }
 
     public void RenewPins ()
     {
         Debug.Log("Renewing Pins.");
-        Instantiate(pins, new Vector3(0f, 0f, 1829f), Quaternion.identity);
+        Instantiate(pins, new Vector3(0f, distanceToRaise, 1829f), Quaternion.identity);
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Pin : MonoBehaviour {
     public float standingThreshold = 3f;
-    public float distanceToRaise = 40f;
 
     private Rigidbody myRigidbody;
 
@@ -25,20 +24,20 @@ public class Pin : MonoBehaviour {
         }
     }
 
-    public void RaiseIfStanding ()
+    public void RaiseIfStanding (float distance)
     {
         if (IsStanding())
         {
             myRigidbody.useGravity = false;
-            myRigidbody.isKinematic = true;
-            myRigidbody.MovePosition(transform.position + Vector3.up * distanceToRaise);
+            //myRigidbody.isKinematic = true;
+            myRigidbody.MovePosition(transform.position + Vector3.up * distance);
         }
     }
 
-    public void Lower ()
+    public void Lower (float distance)
     {
-        myRigidbody.MovePosition(transform.position + Vector3.down * distanceToRaise);
         myRigidbody.useGravity = true;
-        myRigidbody.isKinematic = false;
+        //myRigidbody.MovePosition(transform.position + Vector3.down * distance);
+        //myRigidbody.isKinematic = false;
     }
 }
