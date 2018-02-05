@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Pin : MonoBehaviour {
     public float standingThreshold = 3f;
-    public float distanceToRaise = 40f;
 
     private Rigidbody myRigidbody;
 
@@ -14,7 +13,8 @@ public class Pin : MonoBehaviour {
     }
 	
     public bool IsStanding () {
-        float tiltInX = Mathf.Abs (Mathf.DeltaAngle (transform.eulerAngles.x, 0)); // Absolute (positive) delta between transform rotation in degrees and 0.
+        // Get absolute (positive) delta between transform rotation in degrees and 0.
+        float tiltInX = Mathf.Abs (Mathf.DeltaAngle (transform.eulerAngles.x, 0)); 
         float tiltInZ = Mathf.Abs (Mathf.DeltaAngle (transform.eulerAngles.z, 0));
 
         if (tiltInX >= standingThreshold  || tiltInZ >= standingThreshold) {
@@ -25,20 +25,17 @@ public class Pin : MonoBehaviour {
         }
     }
 
-    public void RaiseIfStanding ()
+    public void RaiseIfStanding (float distance)
     {
         if (IsStanding())
         {
             myRigidbody.useGravity = false;
-            myRigidbody.isKinematic = true;
-            myRigidbody.MovePosition(transform.position + Vector3.up * distanceToRaise);
+            myRigidbody.MovePosition(transform.position + Vector3.up * distance);
         }
     }
 
-    public void Lower ()
+    public void Lower (float distance)
     {
-        myRigidbody.MovePosition(transform.position + Vector3.down * distanceToRaise);
         myRigidbody.useGravity = true;
-        myRigidbody.isKinematic = false;
     }
 }

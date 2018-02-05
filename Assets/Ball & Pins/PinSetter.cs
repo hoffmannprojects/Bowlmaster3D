@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PinSetter : MonoBehaviour
 {
+    public GameObject pins;
+    public float distanceToRaise = 40f;
+
     private int lastStandingCount;
     private bool ballEnteredBox = false;
     private Text pinCounterDisplay;
@@ -14,7 +17,6 @@ public class PinSetter : MonoBehaviour
     void Start()
     {
         pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
-        lastStandingCount = CountStanding();
         ball = GameObject.FindObjectOfType<Ball>();
     }
 
@@ -24,21 +26,42 @@ public class PinSetter : MonoBehaviour
     {
         if (ballEnteredBox) 
         {
-            StartCoroutine(CheckStandingCount());
+            StartCoroutine(UpdatePinStatus());
         }
     }
 
-    IEnumerator CheckStandingCount()
+    IEnumerator UpdatePinStatus()
     {
-        // Update lastStandingCount
-        lastStandingCount = CountStanding();
+        lastStandingCount = CountStandingPins();
 
-        // Call PinsHaveSettled() when they have after 3 seconds.
         yield return new WaitForSecondsRealtime (3);
-        if (lastStandingCount == CountStanding())
+
+        // Check for any difference after 3 seconds.
+        if (lastStandingCount == CountStandingPins())
         {
             PinsHaveSettled ();
         }
+    }
+
+    int CountStandingPins()
+    {
+        int standingPinCount = 0;
+
+        // Find and loop through all pins.
+        foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
+        {
+            if (currentPin.IsStanding())
+            {
+                standingPinCount++;
+            }
+
+        }
+
+        // Update display.
+        pinCounterDisplay.text = standingPinCount.ToString();
+
+        // Return count of standing pins.
+        return standingPinCount;
     }
 
     void PinsHaveSettled()
@@ -59,44 +82,13 @@ public class PinSetter : MonoBehaviour
         }
     }
 
-
-    void OnTriggerExit(Collider otherCollider)
-    {
-        // Check for presence of Pin script on parent, because of Pin setup in hierarchy. 
-        if (otherCollider.GetComponentInParent<Pin>())
-        {
-            Destroy(otherCollider.GetComponentInParent<Pin>().gameObject);
-        }
-    }
-
-
-    int CountStanding()
-    {
-        int standingPinCount = 0;
-
-        // Find and loop through all pins.
-        foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
-        {
-            if (currentPin.IsStanding())
-            {
-                standingPinCount++;
-            }
-
-        }
-        // Update pin count UI text.
-        pinCounterDisplay.text = standingPinCount.ToString();
-
-        // return count of standing pins
-        return standingPinCount;
-    }
-
     public void RaisePins()
     {
         Debug.Log("Raising Pins.");
 
         foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
         {
-           currentPin.RaiseIfStanding();
+           currentPin.RaiseIfStanding(distanceToRaise);
         }
     }
 
@@ -106,12 +98,13 @@ public class PinSetter : MonoBehaviour
 
         foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
         {
-            currentPin.Lower();
+            currentPin.Lower(distanceToRaise);
         }
     }
 
     public void RenewPins ()
     {
         Debug.Log("Renewing Pins.");
+        Instantiate(pins, new Vector3(0f, distanceToRaise, 1829f), Quaternion.identity);
     }
 }
