@@ -89,4 +89,29 @@ public class PinSetter : MonoBehaviour
         // return count of standing pins
         return standingPinCount;
     }
+
+    public void RaisePins()
+    {
+        Debug.Log("Raising Pins.");
+
+        foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
+        {
+           currentPin.RaiseIfStanding();
+        }
+    }
+
+    public void LowerPins ()
+    {
+        Debug.Log("Lowering Pins.");
+
+        foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
+        {
+            currentPin.Lower();
+        }
+    }
+
+    public void RenewPins ()
+    {
+        Debug.Log("Renewing Pins.");
+    }
 }
