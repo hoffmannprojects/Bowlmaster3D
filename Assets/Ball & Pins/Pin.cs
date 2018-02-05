@@ -13,7 +13,8 @@ public class Pin : MonoBehaviour {
     }
 	
     public bool IsStanding () {
-        float tiltInX = Mathf.Abs (Mathf.DeltaAngle (transform.eulerAngles.x, 0)); // Absolute (positive) delta between transform rotation in degrees and 0.
+        // Get absolute (positive) delta between transform rotation in degrees and 0.
+        float tiltInX = Mathf.Abs (Mathf.DeltaAngle (transform.eulerAngles.x, 0)); 
         float tiltInZ = Mathf.Abs (Mathf.DeltaAngle (transform.eulerAngles.z, 0));
 
         if (tiltInX >= standingThreshold  || tiltInZ >= standingThreshold) {
@@ -29,7 +30,6 @@ public class Pin : MonoBehaviour {
         if (IsStanding())
         {
             myRigidbody.useGravity = false;
-            //myRigidbody.isKinematic = true;
             myRigidbody.MovePosition(transform.position + Vector3.up * distance);
         }
     }
@@ -37,7 +37,5 @@ public class Pin : MonoBehaviour {
     public void Lower (float distance)
     {
         myRigidbody.useGravity = true;
-        //myRigidbody.MovePosition(transform.position + Vector3.down * distance);
-        //myRigidbody.isKinematic = false;
     }
 }

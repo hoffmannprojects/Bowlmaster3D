@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Ball))] // make sure there is a Ball componet present on the object.
 
-public class SwipeLaunch : MonoBehaviour
+public class BallSwipeLaunch : MonoBehaviour
 {
     private Ball ball;
     private float swipeStartTime, swipeEndTime;
@@ -40,9 +40,6 @@ public class SwipeLaunch : MonoBehaviour
         // Modify force vector to translate to game dimensions
         Vector3 launchVelocity = new Vector3(launchSpeedX, 0, launchSpeedZ);
 
-        // Launch ball.
-        // Debug.Log("drag duration at launch = " + dragDuration);
-        // Debug.Log("Velocity at launch = " + launchVelocity);
         ball.Launch(launchVelocity);
     }
 
