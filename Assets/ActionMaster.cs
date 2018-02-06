@@ -9,6 +9,8 @@ public class ActionMaster
         Tidy, EndTurn
     }
 
+    private int bowl = 1;
+
     public Action Bowl (int pins)
     {
         if (pins < 0 || pins > 10)
@@ -16,10 +18,25 @@ public class ActionMaster
             throw new UnityException("Invalid pin count!");
         }
 
-        // Other behaviour here.
+        // Other behaviour here, e.g. last frame.
 
+        // Strike.
         if ( pins == 10)
         {
+            bowl += 2;
+            return Action.EndTurn;
+        }
+
+        // First bowl in frame.
+        if (bowl % 2 != 0)
+        {
+            bowl ++;
+            return Action.Tidy;
+        }
+        // Second bowl in frame.
+        else if (bowl % 2 == 0)
+        {
+            bowl++;
             return Action.EndTurn;
         }
 
