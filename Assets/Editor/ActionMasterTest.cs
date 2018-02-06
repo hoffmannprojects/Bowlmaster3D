@@ -66,7 +66,7 @@ public class ActionMasterTest : MonoBehaviour
     }
 
     [Test]
-    public void T06CheckResetAtStrikeInLastFrame ()
+    public void T06CheckResetAtStrikeOnBall19 ()
     {
         RollBalls(18, 0);
 
@@ -88,6 +88,33 @@ public class ActionMasterTest : MonoBehaviour
         RollBalls(19, 1);
 
         Assert.AreEqual(endGame, actionMaster.Bowl(1));
+    }
+
+    [Test]
+    public void T09StrikeOnBall19AndFailOnBall20ReturnsTidy ()
+    {
+        RollBalls(18, 1);
+        RollBalls(1, 10);
+
+        Assert.AreEqual(tidy, actionMaster.Bowl(1));
+    }
+
+    [Test]
+    public void T10StrikeOnBall19AndZeroOnBall20ReturnsTidy ()
+    {
+        RollBalls(18, 1);
+        RollBalls(1, 10);
+
+        Assert.AreEqual(tidy, actionMaster.Bowl(0));
+    }
+
+    [Test]
+    public void T11StrikeOnBall19AndStrikeOnBall20ReturnsReset ()
+    {
+        RollBalls(18, 1);
+        RollBalls(1, 10);
+
+        Assert.AreEqual(reset, actionMaster.Bowl(10));
     }
 
     private void RollBalls (int ballsToRoll, int pinsHit)

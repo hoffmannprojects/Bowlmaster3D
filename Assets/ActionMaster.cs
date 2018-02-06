@@ -22,9 +22,17 @@ public class ActionMaster
 
         scoreOfBall[currentBall - 1] = pins;
 
+        // Checking for special cases first, more general cases later.
+
         if (currentBall == 21)
         {
             return Action.EndGame;
+        }
+
+        // Strike on ball 19 but fail on ball 20.
+        if ((currentBall == 20) && !BallWasStrike(currentBall) && BallWasStrike(19))
+        {
+            return Action.Tidy;
         }
 
         // Last frame: Strike or Spare.
@@ -35,10 +43,9 @@ public class ActionMaster
         }
 
         // Strike before last frame.
-        if ( pins == 10)
+        if (BallWasStrike(currentBall))
         {
             currentBall += 2;
-
             return Action.EndTurn;
         }
 
@@ -67,6 +74,16 @@ public class ActionMaster
 
     private bool Ball21Awarded ()
     {
-        return ((scoreOfBall[19 - 1] + scoreOfBall[20 - 1]) >= 10);
+        return (GetScoreOfBall(19) + GetScoreOfBall(20) >= 10);
+    }
+
+    private bool BallWasStrike(int ballToCheck)
+    {
+        return (scoreOfBall[ballToCheck - 1] == 10);
+    }
+
+    private int GetScoreOfBall(int ballToGetScoreOf)
+    {
+        return scoreOfBall[ballToGetScoreOf - 1];
     }
 }
