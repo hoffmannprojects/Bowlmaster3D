@@ -28,7 +28,7 @@ public class ActionMaster
         }
 
         // Last frame: Strike or Spare.
-        if (currentBall >= 19 && Bowl21Awarded())
+        if (currentBall >= 19 && Ball21Awarded())
         {
             currentBall++;
             return Action.Reset;
@@ -65,7 +65,7 @@ public class ActionMaster
         throw new UnityException("Not sure what action to return!");
     }
 
-    private bool Bowl21Awarded ()
+    private bool Ball21Awarded ()
     {
         return ((scoreOfBall[19 - 1] + scoreOfBall[20 - 1]) >= 10);
     }
