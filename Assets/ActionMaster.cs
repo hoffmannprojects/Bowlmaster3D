@@ -11,11 +11,20 @@ public class ActionMaster
 
     public Action Bowl (int pins)
     {
+        if (pins < 0 || pins > 10)
+        {
+            throw new UnityException("Invalid pin count!");
+        }
+
+        // Other behaviour here.
+
         if ( pins == 10)
         {
             return Action.EndTurn;
         }
-        return Action.Tidy;
+
+
+        throw new UnityException("Not sure what action to return!");
     }
 
 }
