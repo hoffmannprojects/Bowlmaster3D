@@ -24,34 +24,34 @@ public class ActionMaster
 
         // Checking for special cases first, more general cases later.
 
+        // 10th frame: last ball
         if (currentBall == 21)
         {
             return Action.EndGame;
         }
 
-        // Strike on ball 19 but fail on ball 20.
+        // 10th frame: Strike on ball 19 but fail on ball 20.
         if ((currentBall == 20) && !BallWasStrike(currentBall) && BallWasStrike(19))
         {
             return Action.Tidy;
         }
 
-        // Last frame: Strike or Spare.
+        // 10th frame: Strike or Spare.
         if (currentBall >= 19 && Ball21Awarded())
         {
             currentBall++;
             return Action.Reset;
         }
 
-        // Strike before last frame.
-        if (BallWasStrike(currentBall))
-        {
-            currentBall += 2;
-            return Action.EndTurn;
-        }
-
         // First ball in frame.
         if (currentBall % 2 != 0)
         {
+            // Only first ball of a frame can be a Strike.
+            if (BallWasStrike(currentBall))
+            {
+                currentBall += 2;
+                return Action.EndTurn;
+            }
             currentBall ++;
             return Action.Tidy;
         }
@@ -85,5 +85,10 @@ public class ActionMaster
     private int GetScoreOfBall(int ballToGetScoreOf)
     {
         return scoreOfBall[ballToGetScoreOf - 1];
+    }
+
+    public int GetCurrentBall()
+    {
+        return currentBall;
     }
 }

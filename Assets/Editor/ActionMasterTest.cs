@@ -117,6 +117,35 @@ public class ActionMasterTest : MonoBehaviour
         Assert.AreEqual(reset, actionMaster.Bowl(10));
     }
 
+    [Test]
+    public void T12Knocking10PinsOnSecondBallOfFrameIncreasesBallOnlyBy1 ()
+    {
+        RollBalls(1, 0);
+        int lastBallCount = actionMaster.GetCurrentBall();
+
+        RollBalls(1, 10);
+        Assert.IsTrue(actionMaster.GetCurrentBall() == lastBallCount + 1);
+    }
+
+    [Test]
+    public void T13Knocking10PinsOnSecondBallOfFrameIncreasesBallOnlyBy1TestB ()
+    {
+        RollBalls(1, 0);
+        RollBalls(1, 10);
+        RollBalls(1, 5);
+        Assert.AreEqual(endTurn, actionMaster.Bowl(1));
+    }
+
+    [Test]
+    public void T14Dondi10thFrameTurkey ()
+    {
+        RollBalls(18, 1);
+
+        Assert.AreEqual(reset, actionMaster.Bowl(10));
+        Assert.AreEqual(reset, actionMaster.Bowl(10));
+        Assert.AreEqual(endGame, actionMaster.Bowl(10));
+    }
+
     private void RollBalls (int ballsToRoll, int pinsHit)
     {
         for (int i = 1; i <= ballsToRoll; i++)
