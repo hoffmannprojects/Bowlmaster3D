@@ -14,14 +14,17 @@ public class PinSetter : MonoBehaviour
     private bool scoreIsUpdated = false;
     private Text pinCounterDisplay;
     private Ball ball;
-    private ActionMaster actionmaster;
+    private ActionMaster actionMaster = new ActionMaster();
+    private Animator animator;
 
     // Use this for initialization
     void Start()
     {
         pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
         ball = GameObject.FindObjectOfType<Ball>();
-        actionmaster = new ActionMaster();
+        animator = GetComponent <Animator> ();
+
+        pinCounterDisplay.text = "0";
     }
 
 
@@ -79,7 +82,17 @@ public class PinSetter : MonoBehaviour
         int fallenPins = pinsToBowl - lastStandingCount;
         pinsToBowl = lastStandingCount;
 
-        actionmaster.Bowl(fallenPins);
+        if (actionMaster.Bowl(fallenPins) == ActionMaster.Action.Tidy)
+        {
+            print("Tidy");
+            animator.SetTrigger("tidyTrigger");
+        }
+
+        if (actionMaster.Bowl(fallenPins) == ActionMaster.Action.Reset)
+        {
+            print("Reset");
+            animator.SetTrigger("resetTrigger");
+        }
 
         // Update display.
         pinCounterDisplay.text = fallenPins.ToString();
@@ -94,6 +107,7 @@ public class PinSetter : MonoBehaviour
             ballEnteredBox = true;
 
             pinCounterDisplay.color = Color.red;
+            pinCounterDisplay.text = "scoring";
         }
     }
 
