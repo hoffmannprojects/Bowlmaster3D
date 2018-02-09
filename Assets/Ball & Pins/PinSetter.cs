@@ -9,15 +9,22 @@ public class PinSetter : MonoBehaviour
     public float distanceToRaise = 40f;
 
     private int lastStandingCount;
+    private int pinsToBowl = 10;
     private bool ballEnteredBox = false;
+    private bool scoreIsUpdated = false;
     private Text pinCounterDisplay;
     private Ball ball;
+    private ActionMaster actionMaster = new ActionMaster();
+    private Animator animator;
 
     // Use this for initialization
     void Start()
     {
         pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
         ball = GameObject.FindObjectOfType<Ball>();
+        animator = GetComponent<Animator>();
+
+        pinCounterDisplay.text = "0";
     }
 
 
@@ -26,6 +33,7 @@ public class PinSetter : MonoBehaviour
     {
         if (ballEnteredBox) 
         {
+            scoreIsUpdated = false;
             StartCoroutine(UpdatePinStatus());
         }
     }
@@ -39,7 +47,10 @@ public class PinSetter : MonoBehaviour
         // Check for any difference after 3 seconds.
         if (lastStandingCount == CountStandingPins())
         {
-            PinsHaveSettled ();
+            if (!scoreIsUpdated)
+            {
+                PinsHaveSettled ();
+            }
         }
     }
 
@@ -56,19 +67,52 @@ public class PinSetter : MonoBehaviour
             }
 
         }
-
-        // Update display.
-        pinCounterDisplay.text = standingPinCount.ToString();
-
         // Return count of standing pins.
         return standingPinCount;
     }
 
     void PinsHaveSettled()
     {
-        pinCounterDisplay.color = Color.green;
         ballEnteredBox = false;
         ball.Reset();
+        UpdateScore();
+        Debug.Log("Pins to Bowl: " + pinsToBowl);
+    }
+
+    void UpdateScore()
+    {
+        int fallenPins = pinsToBowl - lastStandingCount;
+        pinsToBowl = lastStandingCount;
+
+        // Let actionMaster decide what action to do.
+        ActionMaster.Action action = actionMaster.Bowl(fallenPins);
+
+        if (action == ActionMaster.Action.Tidy)
+        {
+            print("Tidy");
+            animator.SetTrigger("tidyTrigger");
+        }
+        else if (action == ActionMaster.Action.Reset)
+        {
+            print("Reset");
+            animator.SetTrigger("resetTrigger");
+            pinsToBowl = 10;
+        }
+        else if (action == ActionMaster.Action.EndTurn)
+        {
+            print("EndTurn triggering Reset");
+            animator.SetTrigger("resetTrigger");
+            pinsToBowl = 10;
+        }
+        else if (action == ActionMaster.Action.EndGame)
+        {
+            throw new UnityException("EndGame handling not defined!");
+        }
+
+        // Update display.
+        pinCounterDisplay.text = fallenPins.ToString();
+        pinCounterDisplay.color = Color.green;
+        scoreIsUpdated = true;
     }
 
     void OnTriggerEnter(Collider otherCollider)
@@ -76,16 +120,14 @@ public class PinSetter : MonoBehaviour
         if (otherCollider.gameObject.GetComponent<Ball>())
         {
             ballEnteredBox = true;
-            print("Ball detected in PinSetter");
 
             pinCounterDisplay.color = Color.red;
+            pinCounterDisplay.text = "scoring";
         }
     }
 
     public void RaisePins()
     {
-        Debug.Log("Raising Pins.");
-
         foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
         {
            currentPin.RaiseIfStanding(distanceToRaise);
@@ -94,8 +136,6 @@ public class PinSetter : MonoBehaviour
 
     public void LowerPins ()
     {
-        Debug.Log("Lowering Pins.");
-
         foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
         {
             currentPin.Lower(distanceToRaise);
@@ -104,7 +144,6 @@ public class PinSetter : MonoBehaviour
 
     public void RenewPins ()
     {
-        Debug.Log("Renewing Pins.");
         Instantiate(pins, new Vector3(0f, distanceToRaise, 1829f), Quaternion.identity);
     }
 }

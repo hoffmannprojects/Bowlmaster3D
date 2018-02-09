@@ -40,6 +40,8 @@ public class BallSwipeLaunch : MonoBehaviour
         // Modify force vector to translate to game dimensions
         Vector3 launchVelocity = new Vector3(launchSpeedX, 0, launchSpeedZ);
 
+        //TODO: Don't allow to throw ball backwards?
+
         ball.Launch(launchVelocity);
     }
 
