@@ -9,15 +9,19 @@ public class PinSetter : MonoBehaviour
     public float distanceToRaise = 40f;
 
     private int lastStandingCount;
+    private int pinsToBowl = 10;
     private bool ballEnteredBox = false;
+    private bool scoreIsUpdated = false;
     private Text pinCounterDisplay;
     private Ball ball;
+    private ActionMaster actionmaster;
 
     // Use this for initialization
     void Start()
     {
         pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
         ball = GameObject.FindObjectOfType<Ball>();
+        actionmaster = new ActionMaster();
     }
 
 
@@ -39,7 +43,11 @@ public class PinSetter : MonoBehaviour
         // Check for any difference after 3 seconds.
         if (lastStandingCount == CountStandingPins())
         {
-            PinsHaveSettled ();
+            if (!scoreIsUpdated)
+            {
+                PinsHaveSettled ();
+                UpdateScore();
+            }
         }
     }
 
@@ -56,19 +64,27 @@ public class PinSetter : MonoBehaviour
             }
 
         }
-
-        // Update display.
-        pinCounterDisplay.text = standingPinCount.ToString();
-
         // Return count of standing pins.
         return standingPinCount;
     }
 
     void PinsHaveSettled()
     {
-        pinCounterDisplay.color = Color.green;
         ballEnteredBox = false;
         ball.Reset();
+    }
+
+    void UpdateScore()
+    {
+        int fallenPins = pinsToBowl - lastStandingCount;
+        pinsToBowl = lastStandingCount;
+
+        actionmaster.Bowl(fallenPins);
+
+        // Update display.
+        pinCounterDisplay.text = fallenPins.ToString();
+        pinCounterDisplay.color = Color.green;
+        scoreIsUpdated = true;
     }
 
     void OnTriggerEnter(Collider otherCollider)
