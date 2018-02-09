@@ -22,7 +22,7 @@ public class PinSetter : MonoBehaviour
     {
         pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
         ball = GameObject.FindObjectOfType<Ball>();
-        animator = GetComponent <Animator> ();
+        animator = GetComponent<Animator>();
 
         pinCounterDisplay.text = "0";
     }
@@ -81,17 +81,29 @@ public class PinSetter : MonoBehaviour
     {
         int fallenPins = pinsToBowl - lastStandingCount;
         pinsToBowl = lastStandingCount;
+        Debug.Log("Fallen pins: " + fallenPins);
 
-        if (actionMaster.Bowl(fallenPins) == ActionMaster.Action.Tidy)
+        // Let actionMaster decide what action to do.
+        ActionMaster.Action action = actionMaster.Bowl(fallenPins);
+
+        if (action == ActionMaster.Action.Tidy)
         {
             print("Tidy");
             animator.SetTrigger("tidyTrigger");
         }
-
-        if (actionMaster.Bowl(fallenPins) == ActionMaster.Action.Reset)
+        else if (action == ActionMaster.Action.Reset)
         {
             print("Reset");
             animator.SetTrigger("resetTrigger");
+        }
+        else if (action == ActionMaster.Action.EndTurn)
+        {
+            print("EndTurn triggering Reset");
+            animator.SetTrigger("resetTrigger");
+        }
+        else if (action == ActionMaster.Action.EndGame)
+        {
+            throw new UnityException("EndGame handling not defined!");
         }
 
         // Update display.
