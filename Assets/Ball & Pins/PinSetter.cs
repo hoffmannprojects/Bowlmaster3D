@@ -46,7 +46,6 @@ public class PinSetter : MonoBehaviour
             if (!scoreIsUpdated)
             {
                 PinsHaveSettled ();
-                UpdateScore();
             }
         }
     }
@@ -72,6 +71,7 @@ public class PinSetter : MonoBehaviour
     {
         ballEnteredBox = false;
         ball.Reset();
+        UpdateScore();
     }
 
     void UpdateScore()
@@ -92,7 +92,6 @@ public class PinSetter : MonoBehaviour
         if (otherCollider.gameObject.GetComponent<Ball>())
         {
             ballEnteredBox = true;
-            print("Ball detected in PinSetter");
 
             pinCounterDisplay.color = Color.red;
         }
@@ -100,8 +99,6 @@ public class PinSetter : MonoBehaviour
 
     public void RaisePins()
     {
-        Debug.Log("Raising Pins.");
-
         foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
         {
            currentPin.RaiseIfStanding(distanceToRaise);
@@ -110,8 +107,6 @@ public class PinSetter : MonoBehaviour
 
     public void LowerPins ()
     {
-        Debug.Log("Lowering Pins.");
-
         foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
         {
             currentPin.Lower(distanceToRaise);
@@ -120,7 +115,6 @@ public class PinSetter : MonoBehaviour
 
     public void RenewPins ()
     {
-        Debug.Log("Renewing Pins.");
         Instantiate(pins, new Vector3(0f, distanceToRaise, 1829f), Quaternion.identity);
     }
 }

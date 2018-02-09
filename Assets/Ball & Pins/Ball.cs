@@ -39,7 +39,6 @@ public class Ball : MonoBehaviour
 
     public void Reset ()
     {
-        Debug.Log("Resetting ball.");
         inPlay = false;
         // Rigidbody.position is faster than transform.position.
         rb.position = startPosition;

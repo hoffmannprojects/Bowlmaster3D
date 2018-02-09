@@ -19,10 +19,6 @@ public class ActionMaster
         {
             throw new UnityException("Invalid pin count!");
         }
-        else
-        {
-            Debug.Log("ActionMaster: valid pin count registered.");
-        }
 
         scoreOfBall[currentBall - 1] = pins;
 
