@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public bool inPlay = false;
-
+    private bool inPlay = false;
     private Rigidbody rb;
     private AudioSource audioSource;
     private Vector3 startPosition;
@@ -22,12 +21,15 @@ public class Ball : MonoBehaviour
 
     public void Launch(Vector3 force)
     {
-        rb.useGravity = true;
-        rb.AddForce(force, ForceMode.Impulse);
+        if (!inPlay)
+        {
+            rb.useGravity = true;
+            rb.AddForce(force, ForceMode.Impulse);
 
-        audioSource.Play();
+            audioSource.Play();
 
-        inPlay = true;
+            inPlay = true;
+        }
     }
 
     void MoveStart(float xNudgeAmount) {

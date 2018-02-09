@@ -33,6 +33,7 @@ public class PinSetter : MonoBehaviour
     {
         if (ballEnteredBox) 
         {
+            scoreIsUpdated = false;
             StartCoroutine(UpdatePinStatus());
         }
     }
@@ -75,13 +76,13 @@ public class PinSetter : MonoBehaviour
         ballEnteredBox = false;
         ball.Reset();
         UpdateScore();
+        Debug.Log("Pins to Bowl: " + pinsToBowl);
     }
 
     void UpdateScore()
     {
         int fallenPins = pinsToBowl - lastStandingCount;
         pinsToBowl = lastStandingCount;
-        Debug.Log("Fallen pins: " + fallenPins);
 
         // Let actionMaster decide what action to do.
         ActionMaster.Action action = actionMaster.Bowl(fallenPins);
@@ -95,11 +96,13 @@ public class PinSetter : MonoBehaviour
         {
             print("Reset");
             animator.SetTrigger("resetTrigger");
+            pinsToBowl = 10;
         }
         else if (action == ActionMaster.Action.EndTurn)
         {
             print("EndTurn triggering Reset");
             animator.SetTrigger("resetTrigger");
+            pinsToBowl = 10;
         }
         else if (action == ActionMaster.Action.EndGame)
         {
