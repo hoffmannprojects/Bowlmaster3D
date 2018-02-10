@@ -146,6 +146,14 @@ public class ActionMasterTest : MonoBehaviour
         Assert.AreEqual(endGame, actionMaster.Bowl(10));
     }
 
+    [Test]
+    public void T15Knocking0ThenKnocking1ReturnsEndTurn ()
+    {
+        RollBalls(1, 0);
+
+        Assert.AreEqual(endTurn, actionMaster.Bowl(1));
+    }
+
     private void RollBalls (int ballsToRoll, int pinsHit)
     {
         for (int i = 1; i <= ballsToRoll; i++)

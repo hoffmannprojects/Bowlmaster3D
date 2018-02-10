@@ -10,12 +10,15 @@ public class PinSetter : MonoBehaviour
 
     private int lastStandingCount;
     private int pinsToBowl = 10;
-    private bool ballEnteredBox = false;
+    private bool ballLeftLaneBox = false;
     private bool scoreIsUpdated = false;
+
     private Text pinCounterDisplay;
     private Ball ball;
-    private ActionMaster actionMaster = new ActionMaster();
     private Animator animator;
+
+    // Needs to stay here (to be persistent).
+    private ActionMaster actionMaster = new ActionMaster();
 
     // Use this for initialization
     void Start()
@@ -27,11 +30,10 @@ public class PinSetter : MonoBehaviour
         pinCounterDisplay.text = "0";
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        if (ballEnteredBox) 
+        if (ballLeftLaneBox) 
         {
             scoreIsUpdated = false;
             StartCoroutine(UpdatePinStatus());
@@ -41,6 +43,9 @@ public class PinSetter : MonoBehaviour
     IEnumerator UpdatePinStatus()
     {
         lastStandingCount = CountStandingPins();
+
+        pinCounterDisplay.color = Color.red;
+        pinCounterDisplay.text = "scoring";
 
         yield return new WaitForSecondsRealtime (3);
 
@@ -73,7 +78,7 @@ public class PinSetter : MonoBehaviour
 
     void PinsHaveSettled()
     {
-        ballEnteredBox = false;
+        ballLeftLaneBox = false;
         ball.Reset();
         UpdateScore();
         Debug.Log("Pins to Bowl: " + pinsToBowl);
@@ -81,7 +86,9 @@ public class PinSetter : MonoBehaviour
 
     void UpdateScore()
     {
+        
         int fallenPins = pinsToBowl - lastStandingCount;
+
         pinsToBowl = lastStandingCount;
 
         // Let actionMaster decide what action to do.
@@ -115,15 +122,9 @@ public class PinSetter : MonoBehaviour
         scoreIsUpdated = true;
     }
 
-    void OnTriggerEnter(Collider otherCollider)
+    public void SetBallLeftLaneBox()
     {
-        if (otherCollider.gameObject.GetComponent<Ball>())
-        {
-            ballEnteredBox = true;
-
-            pinCounterDisplay.color = Color.red;
-            pinCounterDisplay.text = "scoring";
-        }
+        ballLeftLaneBox = true;
     }
 
     public void RaisePins()
