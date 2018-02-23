@@ -50,3 +50,7 @@ ehthumbs.db
 # Custom #
 # ======= #
 /00_CourseDownloads/
+
+Assets/UCLAGameLab/
+
+Assets/UCLAGameLab\.meta
