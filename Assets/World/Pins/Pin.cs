@@ -31,6 +31,7 @@ public class Pin : MonoBehaviour {
         {
             myRigidbody.useGravity = false;
             myRigidbody.MovePosition(transform.position + Vector3.up * distance);
+            myRigidbody.rotation = Quaternion.identity;
         }
     }
 
