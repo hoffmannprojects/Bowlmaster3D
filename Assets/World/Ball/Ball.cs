@@ -47,6 +47,7 @@ public class Ball : MonoBehaviour
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        rb.rotation = Quaternion.identity;
         
     }
 
