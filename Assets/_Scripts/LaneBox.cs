@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class LaneBox : MonoBehaviour {
 
-    private PinSetter pinSetter;
+    private GameManager gameManager;
 
 	// Use this for initialization
 	void Start ()
     {
-        pinSetter = GameObject.FindObjectOfType<PinSetter>();
+        gameManager = GameObject.FindObjectOfType<GameManager>();
 	}
 
     private void OnTriggerExit (Collider other)
     {
         if (other.gameObject.GetComponent<Ball>())
         {
-            pinSetter.SetBallLeftLaneBox();
+            gameManager.SetBallLeftLaneBox();
         }
     }
 }

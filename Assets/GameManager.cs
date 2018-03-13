@@ -1,65 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; // Needed for accessing Text type. 
 
-public class PinSetter : MonoBehaviour
-{
-    public GameObject pins;
-    public float distanceToRaise = 40f;
+public class GameManager : MonoBehaviour {
 
-    private int lastStandingCount;
-    private int pinsToBowl = 10;
+    private Ball ball;
+    private PinSetter pinSetter;
+    private Text pinCounterDisplay;
     private bool ballLeftLaneBox = false;
     private bool scoreIsUpdated = false;
-
-    private Text pinCounterDisplay;
-    private Ball ball;
-    private Animator animator;
+    private int lastStandingCount;
+    private int pinsToBowl = 10;
 
     // Needs to stay here (to be persistent).
     private ActionMaster actionMaster = new ActionMaster();
 
     // Use this for initialization
-    void Start()
+    void Start ()
     {
-        pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
         ball = GameObject.FindObjectOfType<Ball>();
-        animator = GetComponent<Animator>();
+        pinSetter = GameObject.FindObjectOfType<PinSetter>();
+        pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
 
         pinCounterDisplay.text = "0";
     }
-
-    // Update is called once per frame
-    void Update()
+	
+	// Update is called once per frame
+	void Update ()
     {
-        if (ballLeftLaneBox) 
+        if (ballLeftLaneBox)
         {
             scoreIsUpdated = false;
             StartCoroutine(UpdatePinStatus());
         }
     }
 
-    IEnumerator UpdatePinStatus()
+    IEnumerator UpdatePinStatus ()
     {
         lastStandingCount = CountStandingPins();
 
         pinCounterDisplay.color = Color.red;
         pinCounterDisplay.text = "scoring";
 
-        yield return new WaitForSecondsRealtime (3);
+        yield return new WaitForSecondsRealtime(3);
 
         // Check for any difference after 3 seconds.
         if (lastStandingCount == CountStandingPins())
         {
             if (!scoreIsUpdated)
             {
-                PinsHaveSettled ();
+                PinsHaveSettled();
             }
         }
     }
 
-    int CountStandingPins()
+    int CountStandingPins ()
     {
         int standingPinCount = 0;
 
@@ -76,7 +72,7 @@ public class PinSetter : MonoBehaviour
         return standingPinCount;
     }
 
-    void PinsHaveSettled()
+    void PinsHaveSettled ()
     {
         ballLeftLaneBox = false;
         ball.Reset();
@@ -84,9 +80,9 @@ public class PinSetter : MonoBehaviour
         Debug.Log("Pins to Bowl: " + pinsToBowl);
     }
 
-    void UpdateScore()
+    void UpdateScore ()
     {
-        
+
         int fallenPins = pinsToBowl - lastStandingCount;
 
         pinsToBowl = lastStandingCount;
@@ -96,19 +92,17 @@ public class PinSetter : MonoBehaviour
 
         if (action == ActionMaster.Action.Tidy)
         {
-            print("Tidy");
-            animator.SetTrigger("tidyTrigger");
+            pinSetter.Tidy();
         }
         else if (action == ActionMaster.Action.Reset)
         {
-            print("Reset");
-            animator.SetTrigger("resetTrigger");
+            pinSetter.Reset();
             pinsToBowl = 10;
         }
         else if (action == ActionMaster.Action.EndTurn)
         {
             print("EndTurn triggering Reset");
-            animator.SetTrigger("resetTrigger");
+            pinSetter.Reset();
             pinsToBowl = 10;
         }
         else if (action == ActionMaster.Action.EndGame)
@@ -122,29 +116,8 @@ public class PinSetter : MonoBehaviour
         scoreIsUpdated = true;
     }
 
-    public void SetBallLeftLaneBox()
+    public void SetBallLeftLaneBox ()
     {
         ballLeftLaneBox = true;
-    }
-
-    public void RaisePins()
-    {
-        foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
-        {
-           currentPin.RaiseIfStanding(distanceToRaise);
-        }
-    }
-
-    public void LowerPins ()
-    {
-        foreach (Pin currentPin in GameObject.FindObjectsOfType<Pin>())
-        {
-            currentPin.Lower(distanceToRaise);
-        }
-    }
-
-    public void RenewPins ()
-    {
-        Instantiate(pins, new Vector3(0f, distanceToRaise, 1829f), Quaternion.identity);
     }
 }
