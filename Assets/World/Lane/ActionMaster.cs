@@ -14,14 +14,14 @@ public class ActionMaster
     private int[] scoreOfBall = new int[21];
 
     // New API for getting the next action by passing in a list of bowl results (fallen pins per bowl).
-    public static Action NextAction(List<int> pinFalls)
+    public static Action NextAction(List<int> bowlResults)
     {
         ActionMaster actionMaster = new ActionMaster();
         Action currentAction = new Action();
 
-        foreach (int pinFall in pinFalls)
+        foreach (int bowlResult in bowlResults)
         {
-            currentAction = actionMaster.Bowl(pinFall);
+            currentAction = actionMaster.Bowl(bowlResult);
         }
         return currentAction;
     }
@@ -98,10 +98,5 @@ public class ActionMaster
     private int GetScoreOfBall(int ballToGetScoreOf)
     {
         return scoreOfBall[ballToGetScoreOf - 1];
-    }
-
-    public int GetCurrentBall()
-    {
-        return currentBall;
     }
 }
