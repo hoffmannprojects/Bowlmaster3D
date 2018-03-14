@@ -6,9 +6,9 @@ using UnityEngine.UI; // Needed for accessing Text type.
 public class PinCounter : MonoBehaviour {
 
     private bool ballLeftLaneBox = false;
-    private bool bowlIsScored = false;
-    private int lastStandingCount;
-    private int pinsToBowl = 10;
+    private bool bowlIsLocked = false;
+    private int pinsLeftStanding;
+    private int pinsToBowl;
 
     private GameManager gameManager;
     private Text pinCounterDisplay;
@@ -23,7 +23,7 @@ public class PinCounter : MonoBehaviour {
         gameManager = GameObject.FindObjectOfType<GameManager>();
         pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
 
-        pinCounterDisplay.text = "0";
+        Reset();
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class PinCounter : MonoBehaviour {
     {
         if (ballLeftLaneBox)
         {
-            bowlIsScored = false;
+            bowlIsLocked = false;
             StartCoroutine(UpdatePinStatus());
         }
     }
@@ -46,7 +46,7 @@ public class PinCounter : MonoBehaviour {
 
     IEnumerator UpdatePinStatus ()
     {
-        lastStandingCount = CountStandingPins();
+        pinsLeftStanding = CountStandingPins();
 
         pinCounterDisplay.color = Color.red;
         pinCounterDisplay.text = "scoring";
@@ -54,12 +54,9 @@ public class PinCounter : MonoBehaviour {
         yield return new WaitForSecondsRealtime(pinsHaveSettledThresholdSeconds);
 
         // Check for any difference after pinsHaveSettledThresholdSeconds.
-        if (lastStandingCount == CountStandingPins())
-        {
-            if (!bowlIsScored)
-            {
-                PinsHaveSettled();
-            }
+        if ((pinsLeftStanding == CountStandingPins()) && !bowlIsLocked)
+        {            
+            LockBowl();
         }
     }
 
@@ -78,30 +75,35 @@ public class PinCounter : MonoBehaviour {
         return standingPinCount;
     }
 
-    void PinsHaveSettled ()
+    void LockBowl ()
     {
         ballLeftLaneBox = false;
         SubmitBowl();
+        bowlIsLocked = true;
     }
 
     void SubmitBowl ()
     {
-        int fallenPins = pinsToBowl - lastStandingCount;
+        int pinsBowled = pinsToBowl - pinsLeftStanding;
+        pinsToBowl = pinsLeftStanding;
 
-        gameManager.HandleBowl(fallenPins);
-        pinsToBowl = lastStandingCount;
-        bowlIsScored = true;
+        UpdateDisplay(pinsBowled);
+
+        gameManager.HandleBowl(pinsBowled);
 
         print("pinsToBowl: " + pinsToBowl);
+    }
 
-        // Update display.
-        pinCounterDisplay.text = fallenPins.ToString();
+    private void UpdateDisplay (int pinsBowled)
+    {
+        pinCounterDisplay.text = pinsBowled.ToString();
         pinCounterDisplay.color = Color.green;
     }
 
     public void Reset ()
     {
         pinsToBowl = 10;
-        print("pinsToBowl: " + pinsToBowl);
+        pinCounterDisplay.text = "0";
+        pinCounterDisplay.color = Color.gray;
     }
 }
