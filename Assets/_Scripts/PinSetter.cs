@@ -37,13 +37,11 @@ public class PinSetter : MonoBehaviour
 
     public void Tidy ()
     {
-        print("Tidy");
         animator.SetTrigger("tidyTrigger");
     }
 
     public void Reset ()
     {
-        print("Reset");
         animator.SetTrigger("resetTrigger");
     }
 }

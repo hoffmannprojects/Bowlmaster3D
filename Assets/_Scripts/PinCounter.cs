@@ -74,7 +74,6 @@ public class PinCounter : MonoBehaviour {
             {
                 standingPinCount++;
             }
-
         }
         return standingPinCount;
     }
@@ -89,17 +88,20 @@ public class PinCounter : MonoBehaviour {
     {
         int fallenPins = pinsToBowl - lastStandingCount;
 
-        gameManager.HandleBowlResult(fallenPins);
+        gameManager.HandleBowl(fallenPins);
         pinsToBowl = lastStandingCount;
+        bowlIsScored = true;
+
+        print("pinsToBowl: " + pinsToBowl);
 
         // Update display.
         pinCounterDisplay.text = fallenPins.ToString();
         pinCounterDisplay.color = Color.green;
-        bowlIsScored = true;
     }
 
     public void Reset ()
     {
         pinsToBowl = 10;
+        print("pinsToBowl: " + pinsToBowl);
     }
 }

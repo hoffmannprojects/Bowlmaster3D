@@ -20,13 +20,22 @@ public class GameManager : MonoBehaviour {
         pinCounter = GameObject.FindObjectOfType<PinCounter>();
     }
 
-    public void HandleBowlResult (int fallenPins)
+    public void HandleBowl (int fallenPins)
     {
         ball.Reset();
         bowls.Add(fallenPins);
 
+        // Print bowls list.
+        System.Text.StringBuilder builder = new System.Text.StringBuilder();
+        foreach (int bowl in bowls)
+        {
+            builder.Append(bowl).Append(", ");
+        }
+        string bowlsList = builder.ToString();
+        print ("Bowls: " + bowlsList);
+
         // Let actionMaster decide what action to do.
-        //ActionMaster.NextAction nextAction = ActionMaster.NextAction(bowls);
+        //ActionMaster.Action nextAction = ActionMaster.NextAction(bowls);
 
         if (ActionMaster.NextAction(bowls) == ActionMaster.Action.Tidy)
         {
@@ -39,7 +48,6 @@ public class GameManager : MonoBehaviour {
         }
         else if (ActionMaster.NextAction(bowls) == ActionMaster.Action.EndTurn)
         {
-            print("EndTurn triggering Reset");
             pinSetter.Reset();
             pinCounter.Reset();
         }
