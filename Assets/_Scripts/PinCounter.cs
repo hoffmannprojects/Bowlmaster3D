@@ -6,17 +6,15 @@ using UnityEngine.UI; // Needed for accessing Text type.
 public class PinCounter : MonoBehaviour {
 
     private bool ballLeftLaneBox = false;
-    private bool scoreIsUpdated = false;
+    private bool bowlIsScored = false;
     private int lastStandingCount;
     private int pinsToBowl = 10;
 
     private GameManager gameManager;
     private Text pinCounterDisplay;
     private Ball ball;
-    private PinSetter pinSetter;
 
-    // Needs to stay here (to be persistent).
-    private ActionMaster actionMaster = new ActionMaster();
+    public int pinsHaveSettledThresholdSeconds = 3;
 
     // Use this for initialization
     void Start ()
@@ -24,7 +22,6 @@ public class PinCounter : MonoBehaviour {
         ball = GameObject.FindObjectOfType<Ball>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
         pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
-        pinSetter = GameObject.FindObjectOfType<PinSetter>();
 
         pinCounterDisplay.text = "0";
     }
@@ -34,7 +31,7 @@ public class PinCounter : MonoBehaviour {
     {
         if (ballLeftLaneBox)
         {
-            scoreIsUpdated = false;
+            bowlIsScored = false;
             StartCoroutine(UpdatePinStatus());
         }
     }
@@ -54,12 +51,12 @@ public class PinCounter : MonoBehaviour {
         pinCounterDisplay.color = Color.red;
         pinCounterDisplay.text = "scoring";
 
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(pinsHaveSettledThresholdSeconds);
 
-        // Check for any difference after 3 seconds.
+        // Check for any difference after pinsHaveSettledThresholdSeconds.
         if (lastStandingCount == CountStandingPins())
         {
-            if (!scoreIsUpdated)
+            if (!bowlIsScored)
             {
                 PinsHaveSettled();
             }
@@ -79,51 +76,30 @@ public class PinCounter : MonoBehaviour {
             }
 
         }
-        // Return count of standing pins.
         return standingPinCount;
     }
 
     void PinsHaveSettled ()
     {
         ballLeftLaneBox = false;
-        ball.Reset();
-        UpdateScore();
-        Debug.Log("Pins to Bowl: " + pinsToBowl);
+        SubmitBowl();
     }
 
-    void UpdateScore ()
+    void SubmitBowl ()
     {
-
         int fallenPins = pinsToBowl - lastStandingCount;
 
+        gameManager.HandleBowlResult(fallenPins);
         pinsToBowl = lastStandingCount;
-
-        // Let actionMaster decide what action to do.
-        ActionMaster.Action action = actionMaster.Bowl(fallenPins);
-
-        if (action == ActionMaster.Action.Tidy)
-        {
-            pinSetter.Tidy();
-        }
-        else if (action == ActionMaster.Action.Reset)
-        {
-            pinSetter.Reset();
-            pinsToBowl = 10;
-        }
-        else if (action == ActionMaster.Action.EndTurn)
-        {
-            print("EndTurn triggering Reset");
-            pinSetter.Reset();
-            pinsToBowl = 10;
-        }
-        else if (action == ActionMaster.Action.EndGame)
-        {
-            throw new UnityException("EndGame handling not defined!");
-        }
 
         // Update display.
         pinCounterDisplay.text = fallenPins.ToString();
         pinCounterDisplay.color = Color.green;
-        scoreIsUpdated = true;
+        bowlIsScored = true;
+    }
+
+    public void Reset ()
+    {
+        pinsToBowl = 10;
     }
 }
