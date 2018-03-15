@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScoreMaster {
 
-    // Returns a list of cumulative scores, like a normal score card.
+    // Returns a list of cumulative frame scores, like a normal score card.
     public static List<int> ScoreCumulative (List<int> rolls)
     {
         List<int> cumulativeScores = new List<int>();
@@ -18,27 +18,22 @@ public class ScoreMaster {
         return cumulativeScores;
     }
 
-    // Returns a list of individual frame scores, NOT cumulative.
+    // Returns a list of individual frame scores.
     public static List<int> ScoreIndividualFrames (List<int> rolls)
     {
         List<int> frameScores = new List<int>();
 
-        // Look at every 2nd roll (1st roll is index of 0).
-        for (int currentRoll = 1; currentRoll < rolls.Count; currentRoll+=2)
+        // Look at every 2nd roll (1st roll is index of 0). 
+        // Calculate max. 10 frameScores.
+        for (int currentRoll = 1; (currentRoll < rolls.Count) && (frameScores.Count < 10); currentRoll+=2)
         {
-            // Prevent calculation of more than 10 frames.
-            if (frameScores.Count == 10)
-            {
-                break;
-            }
-
             // Normal "open" frame.
             if (rolls[currentRoll - 1] + rolls[currentRoll] < 10)
             {
                 frameScores.Add(rolls[currentRoll - 1] + rolls[currentRoll]);
             }
 
-            // Proceed only if 2+ adjecent rolls are present.
+            // Check that 2+ adjecent rolls are present.
             if (rolls.Count < currentRoll + 2)
             {
                 break;
