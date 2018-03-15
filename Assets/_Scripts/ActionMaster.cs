@@ -13,7 +13,20 @@ public class ActionMaster
     private int currentBall = 1;
     private int[] scoreOfBall = new int[21];
 
-    public Action Bowl (int pins)
+    // New API for getting the next action by passing in a list of bowl results (fallen pins per bowl).
+    public static Action NextAction(List<int> bowlResults)
+    {
+        ActionMaster actionMaster = new ActionMaster();
+        Action currentAction = new Action();
+
+        foreach (int bowlResult in bowlResults)
+        {
+            currentAction = actionMaster.Bowl(bowlResult);
+        }
+        return currentAction;
+    }
+
+    private Action Bowl(int pins)
     {
         if (pins < 0 || pins > 10)
         {
@@ -52,7 +65,7 @@ public class ActionMaster
                 currentBall += 2;
                 return Action.EndTurn;
             }
-            currentBall ++;
+            currentBall++;
             return Action.Tidy;
         }
         // Second ball in frame.
@@ -62,7 +75,7 @@ public class ActionMaster
 
             if (currentBall < 20)
             {
-            return Action.EndTurn;
+                return Action.EndTurn;
             }
 
             // 20th+ ball.
@@ -72,7 +85,7 @@ public class ActionMaster
         throw new UnityException("Not sure what action to return!");
     }
 
-    private bool Ball21Awarded ()
+    private bool Ball21Awarded()
     {
         return (GetScoreOfBall(19) + GetScoreOfBall(20) >= 10);
     }
@@ -85,10 +98,5 @@ public class ActionMaster
     private int GetScoreOfBall(int ballToGetScoreOf)
     {
         return scoreOfBall[ballToGetScoreOf - 1];
-    }
-
-    public int GetCurrentBall()
-    {
-        return currentBall;
     }
 }
