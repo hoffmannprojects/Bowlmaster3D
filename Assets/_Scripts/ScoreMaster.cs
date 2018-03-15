@@ -39,7 +39,7 @@ public class ScoreMaster {
             }
 
             // Proceed only if 2+ adjecent rolls are present.
-            if (rolls.Count - currentRoll < 2)
+            if (rolls.Count < currentRoll + 2)
             {
                 break;
             }
