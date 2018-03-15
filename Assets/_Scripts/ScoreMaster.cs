@@ -23,55 +23,40 @@ public class ScoreMaster {
     {
         List<int> frameScores = new List<int>();
 
-        // Iterate for a maximum of 10 frameScores.
-        for (int currentRoll = 0; (currentRoll < rolls.Count) && (frameScores.Count < 10); currentRoll++)
+        // Look at every 2nd roll (1st roll is index of 0).
+        for (int currentRoll = 1; currentRoll < rolls.Count; currentRoll+=2)
         {
-            // First roll in frame (even currentRoll).
-            if (currentRoll % 2 == 0)
+            // Prevent calculation of more than 10 frames.
+            if (frameScores.Count == 10)
             {
-                // Strike.
-                if (rolls[currentRoll] == 10)
-                {
-                    // Check if next 2 rolls exist.
-                    if (rolls.Count > currentRoll + 2)
-                    {
-                        // Score strike frame.
-                        frameScores.Add(10 + rolls[currentRoll + 1] + rolls[currentRoll + 2]);
-                        
-                        // Remove Strike from the list and decrease index respectively.
-                        rolls.RemoveAt(currentRoll);
-                        currentRoll--;
-                    }
-                    else
-                    {
-                        return frameScores;
-                    }
-                }
+                break;
             }
-            // Second roll in frame (uneven currentRoll).
-            else if ((currentRoll % 2 != 0))
+
+            // Normal "open" frame.
+            if (rolls[currentRoll - 1] + rolls[currentRoll] < 10)
             {
-                // Spare (10 pins after second roll of frame).
-                if (rolls[currentRoll] + rolls[currentRoll - 1] == 10)
-                {
-                    // Check if next roll exists.
-                    if (rolls.Count > currentRoll + 1)
-                    {
-                        // Score spare frame.
-                        frameScores.Add(10 + rolls[currentRoll + 1]);
-                    }
-                    else
-                    {
-                        return frameScores;
-                    }
-                }
-                // Regular frame 
-                else
-                {
-                    // Score regular frame.
-                    frameScores.Add(rolls[currentRoll] + rolls[currentRoll - 1]);
-                }
+                frameScores.Add(rolls[currentRoll - 1] + rolls[currentRoll]);
             }
+
+            // Proceed only if 2+ adjecent rolls are present.
+            if (rolls.Count - currentRoll < 2)
+            {
+                break;
+            }
+
+            // Strike.
+            if (rolls[currentRoll - 1] == 10)
+            {
+                // Strike frame has just one roll.
+                currentRoll--;
+
+                frameScores.Add(10 + rolls[currentRoll + 1] + rolls[currentRoll + 2]);
+            }
+            // Spare.
+            else if (rolls[currentRoll - 1] + rolls[currentRoll] == 10)
+            {
+                frameScores.Add(10 + rolls[currentRoll + 1]);
+            }  
         }
         return frameScores;
     }
