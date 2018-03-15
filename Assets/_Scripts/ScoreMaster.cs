@@ -19,8 +19,6 @@ public class ScoreMaster {
     }
 
     // Returns a list of individual frame scores, NOT cumulative.
-        // Takes in a list of min 2 and max 21 rolls.
-        // Returns a list of min 1 and max 10 frame scores.
     public static List<int> ScoreIndividualFrames (List<int> rolls)
     {
         List<int> frameScores = new List<int>();
@@ -36,10 +34,10 @@ public class ScoreMaster {
                     // Check if next 2 rolls exist.
                     if (rolls.Count >= currentRoll + 3)
                     {
-                        // Strike frame score = 10 + next 2 rolls.
+                        // Score strike frame.
                         frameScores.Add(10 + rolls[currentRoll + 1] + rolls[currentRoll + 2]);
                         
-                        // Remove Strike from the list.
+                        // Remove Strike from the list and decrease index respectively.
                         rolls.RemoveAt(currentRoll);
                         currentRoll--;
                     }
@@ -58,9 +56,8 @@ public class ScoreMaster {
                     // Check if next roll exists.
                     if (rolls.Count >= currentRoll + 2)
                     {
-                        // Spare frame score = 10 + next roll.
+                        // Score spare frame.
                         frameScores.Add(10 + rolls[currentRoll + 1]);
-                        //currentRoll++;
                     }
                     else
                     {
@@ -70,7 +67,7 @@ public class ScoreMaster {
                 // Regular frame 
                 else
                 {
-                    // regular frame score = 2nd roll + 1st roll.
+                    // Score regular frame.
                     frameScores.Add(rolls[currentRoll] + rolls[currentRoll - 1]);
                 }
             }
