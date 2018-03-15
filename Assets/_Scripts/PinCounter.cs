@@ -12,14 +12,12 @@ public class PinCounter : MonoBehaviour {
 
     private GameManager gameManager;
     private Text pinCounterDisplay;
-    private Ball ball;
 
     public int pinsHaveSettledThresholdSeconds = 3;
 
     // Use this for initialization
     void Start ()
     {
-        ball = GameObject.FindObjectOfType<Ball>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
         pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
 
