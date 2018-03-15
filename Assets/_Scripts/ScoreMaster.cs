@@ -23,7 +23,13 @@ public class ScoreMaster {
     {
         List<int> frameList = new List<int>();
 
-        // code here
+        // Takes in a list of min 1 and max 21 rolls.
+        // Returns a list of min 1 and max 10 frames.
+        // Frame score = 1st roll + 2nd roll.
+            // Strike: 10 pins in the first roll of a frame.
+                // Strike frame score = 10 + next 2 rolls.
+            // Spare: 10 pins after second roll of frame (1st roll in a frame <= 9; 1st + 2nd roll = 10).
+                // Spare frame score = 10 + next roll.
 
         return frameList;
     }
