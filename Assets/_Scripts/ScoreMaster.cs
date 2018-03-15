@@ -25,21 +25,19 @@ public class ScoreMaster {
     {
         List<int> frameScores = new List<int>();
 
-        // int frameCount = 0;
-        int currentRoll = 1;
+        //int currentFrame = 0;
+        int currentRoll = 0;
 
         foreach (int roll in rolls)
         {
-            int currentRollIndex = currentRoll - 1;
-
             // Strike (10 pins in the first roll of a frame).
-            if ((roll == 10) && (currentRoll % 2 != 0))
+            if ((roll == 10) && (currentRoll % 2 == 0))
             {
                 // Check if next 2 rolls exist.
-                if (rolls.Count >= currentRoll + 2)
+                if (rolls.Count >= currentRoll + 3)
                 {
                     // Strike frame score = 10 + next 2 rolls.
-                    frameScores.Add(10 + rolls[currentRollIndex + 1] + rolls[currentRollIndex + 2]);
+                    frameScores.Add(10 + rolls[currentRoll + 1] + rolls[currentRoll + 2]);
                 }
                 else
                 {
@@ -49,16 +47,16 @@ public class ScoreMaster {
             }
 
             // Second bowl of a frame.
-            else if (currentRoll % 2 == 0)
+            else if (currentRoll % 2 != 0)
             {
                 // Spare (10 pins after second roll of frame).
-                if (rolls[currentRollIndex] + rolls[currentRollIndex - 1] == 10)
+                if (rolls[currentRoll] + rolls[currentRoll - 1] == 10)
                 {
                     // Check if next roll exists.
-                    if (rolls.Count >= currentRoll + 1)
+                    if (rolls.Count >= currentRoll + 2)
                     {
                         // Spare frame score = 10 + next roll.
-                        frameScores.Add(10 + rolls[currentRollIndex + 1]);
+                        frameScores.Add(10 + rolls[currentRoll + 1]);
                         currentRoll++;
                     }
                     else
@@ -70,15 +68,15 @@ public class ScoreMaster {
                 else
                 {
                     // Ball before was strike.
-                    if (rolls[currentRollIndex -1] == 10)
+                    if (rolls[currentRoll -1] == 10)
                     {
-                        frameScores.Add(rolls[currentRollIndex] + rolls[currentRollIndex + 1]);
+                        frameScores.Add(rolls[currentRoll] + rolls[currentRoll + 1]);
                         currentRoll++;
                     }
                     else
                     {
                         // Regular frame score = 2nd roll + 1st roll.
-                        frameScores.Add(rolls[currentRollIndex] + rolls[currentRollIndex - 1]);
+                        frameScores.Add(rolls[currentRoll] + rolls[currentRoll - 1]);
                         currentRoll++;
                     }
                 }
