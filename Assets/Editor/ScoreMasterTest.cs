@@ -239,4 +239,22 @@ public class ScoreMasterTest {
         int[] totalS = { 30, 60, 89, 108, 117, 147, 177, 207, 236, 256 };
         Assert.AreEqual(totalS.ToList(), ScoreMaster.ScoreCumulative(rolls.ToList()));
     }
+
+    [Category("Verification")]
+    [Test]
+    public void TG04TenSpare ()
+    {
+        int[] rolls = { 0, 10, 9, 0 };
+        int[] totalS = { 19, 28 };
+        Assert.AreEqual(totalS.ToList(), ScoreMaster.ScoreCumulative(rolls.ToList()));
+    }
+
+    [Category("Verification")]
+    [Test]
+    public void TG05TenSpareinFrame10 ()
+    {
+        int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 10, 7 };
+        int[] totalS = { 2, 4, 6, 8, 10, 12, 14, 16, 18, 35 };
+        Assert.AreEqual(totalS.ToList(), ScoreMaster.ScoreCumulative(rolls.ToList()));
+    }
 }
