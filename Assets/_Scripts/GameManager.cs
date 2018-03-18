@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    private List<int> bowls = new List<int>();
+    private List<int> rolls = new List<int>();
     private Ball ball;
     private PinSetter pinSetter;
     private PinCounter pinCounter;
-
-    // Needs to stay here (to be persistent).
-    //private ActionMaster actionMaster = new ActionMaster();
+    private ScoreDisplay scoreDisplay;
 
     // Use this for initialization
     void Start ()
@@ -19,49 +17,55 @@ public class GameManager : MonoBehaviour {
         ball = GameObject.FindObjectOfType<Ball>();
         pinSetter = GameObject.FindObjectOfType<PinSetter>();
         pinCounter = GameObject.FindObjectOfType<PinCounter>();
+        scoreDisplay = GameObject.FindObjectOfType<ScoreDisplay>();
     }
 
-    public void HandleBowl (int fallenPins)
+    public void HandleRoll (int fallenPins)
     {
         ball.Reset();
-        bowls.Add(fallenPins);
+        rolls.Add(fallenPins);
+        PrintRollsToConsole();
 
-        PrintBowls();
+        try
+        {
+            scoreDisplay.FillRollScores(rolls);
+        }
+        catch
+        {
+            Debug.LogWarning("scoreDisplay.FillRollScores() causes issue.");
+        }
 
-        // Let actionMaster decide what action to do.
-        //ActionMaster.Action nextAction = ActionMaster.NextAction(bowls);
-
-        if (ActionMaster.NextAction(bowls) == ActionMaster.Action.Tidy)
+        if (ActionMaster.NextAction(rolls) == ActionMaster.Action.Tidy)
         {
             pinSetter.Tidy();
             Debug.Log("Tidy.");
         }
-        else if (ActionMaster.NextAction(bowls) == ActionMaster.Action.Reset)
+        else if (ActionMaster.NextAction(rolls) == ActionMaster.Action.Reset)
         {
             pinSetter.Reset();
             pinCounter.Reset();
             Debug.Log("Reset.");
         }
-        else if (ActionMaster.NextAction(bowls) == ActionMaster.Action.EndTurn)
+        else if (ActionMaster.NextAction(rolls) == ActionMaster.Action.EndTurn)
         {
             pinSetter.Reset();
             pinCounter.Reset();
             Debug.Log("Reset (End Turn).");
         }
-        else if (ActionMaster.NextAction(bowls) == ActionMaster.Action.EndGame)
+        else if (ActionMaster.NextAction(rolls) == ActionMaster.Action.EndGame)
         {
             throw new UnityException("EndGame handling not defined!");
         }
     }
 
-    private void PrintBowls ()
+    private void PrintRollsToConsole ()
     {
         StringBuilder builder = new StringBuilder();
-        foreach (int bowl in bowls)
+        foreach (int roll in rolls)
         {
-            builder.Append(bowl).Append(", ");
+            builder.Append(roll).Append(", ");
         }
-        string bowlsList = builder.ToString();
-        print("Bowls: " + bowlsList);
+        string rollsList = builder.ToString();
+        Debug.Log("Bowls: " + rollsList);
     }
 }

@@ -19,9 +19,12 @@ public class ScoreDisplay : MonoBehaviour {
             text.text = "";
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public void FillRollScores (List <int> rolls)
+    {
+        for (int roll = 1; roll <= 21; roll++)
+        {
+            rollTexts[roll-2].text = rolls.ToString();
+        }
+    }
 }
