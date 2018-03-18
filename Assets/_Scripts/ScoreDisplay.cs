@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreDisplay : MonoBehaviour {
 
-    public Text[] rollTexts = new Text[21];
-    public Text[] frameTexts = new Text[10];
+    public Text[] rollTexts, frameTexts;
 
 	// Use this for initialization
 	void Start () {
