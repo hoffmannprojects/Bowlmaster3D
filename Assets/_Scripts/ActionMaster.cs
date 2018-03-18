@@ -1,102 +1,60 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class ActionMaster
-{
-    public enum Action
-    {
-        Tidy, Reset, EndTurn, EndGame
-    }
-
-    private int currentBall = 1;
-    private int[] scoreOfBall = new int[21];
-
-    // New API for getting the next action by passing in a list of bowl results (fallen pins per bowl).
-    public static Action NextAction(List<int> bowlResults)
-    {
-        ActionMaster actionMaster = new ActionMaster();
-        Action currentAction = new Action();
-
-        foreach (int bowlResult in bowlResults)
-        {
-            currentAction = actionMaster.Bowl(bowlResult);
-        }
-        return currentAction;
-    }
-
-    private Action Bowl(int pins)
-    {
-        if (pins < 0 || pins > 10)
-        {
-            throw new UnityException("Invalid pin count!");
-        }
-
-        scoreOfBall[currentBall - 1] = pins;
-
-        // Checking for special cases first, more general cases later.
-
-        // 10th frame: last ball
-        if (currentBall == 21)
-        {
-            return Action.EndGame;
-        }
-
-        // 10th frame: Strike on ball 19 but fail on ball 20.
-        if ((currentBall == 20) && !BallWasStrike(currentBall) && BallWasStrike(19))
-        {
-            return Action.Tidy;
-        }
-
-        // 10th frame: Strike or Spare.
-        if (currentBall >= 19 && Ball21Awarded())
-        {
-            currentBall++;
-            return Action.Reset;
-        }
-
-        // First ball in frame.
-        if (currentBall % 2 != 0)
-        {
-            // Only first ball of a frame can be a Strike.
-            if (BallWasStrike(currentBall))
+public static class ActionMaster {
+	public enum Action {Tidy, Reset, EndTurn, EndGame, Undefined};
+	
+	public static Action NextAction (List<int> rolls) {
+		Action nextAction = Action.Undefined;
+		
+		for (int i = 0; i < rolls.Count; i++)
+        { // Step through rolls
+			
+			if (i == 20)
             {
-                currentBall += 2;
-                return Action.EndTurn;
-            }
-            currentBall++;
-            return Action.Tidy;
-        }
-        // Second ball in frame.
-        else if (currentBall % 2 == 0)
-        {
-            currentBall++;
-
-            if (currentBall < 20)
+				nextAction = Action.EndGame;
+			}
+            else if ( i >= 18 && rolls[i] == 10 )
+            { // Handle last-frame special cases
+				nextAction = Action.Reset;
+			}
+            else if ( i == 19 )
             {
-                return Action.EndTurn;
-            }
-
-            // 20th+ ball.
-            return Action.EndGame;
-        }
-
-        throw new UnityException("Not sure what action to return!");
-    }
-
-    private bool Ball21Awarded()
-    {
-        return (GetScoreOfBall(19) + GetScoreOfBall(20) >= 10);
-    }
-
-    private bool BallWasStrike(int ballToCheck)
-    {
-        return (scoreOfBall[ballToCheck - 1] == 10);
-    }
-
-    private int GetScoreOfBall(int ballToGetScoreOf)
-    {
-        return scoreOfBall[ballToGetScoreOf - 1];
-    }
+				if (rolls[18]==10 && rolls[19]==0)
+                {
+					nextAction = Action.Tidy;
+				}
+                else if (rolls[18] + rolls[19] == 10)
+                {
+					nextAction = Action.Reset;
+				}
+                else if (rolls [18] + rolls[19] >= 10)
+                {  // Roll 21 awarded
+					nextAction = Action.Tidy;
+				}
+                else
+                {
+					nextAction = Action.EndGame;
+				}
+			}
+            else if (i % 2 == 0)
+            { // First bowl of frame
+				if (rolls[i] == 10)
+                {
+					rolls.Insert (i, 0); // Insert virtual 0 after strike
+					nextAction = Action.EndTurn;
+				}
+                else
+                {
+					nextAction = Action.Tidy;
+				}
+			} else
+            { // Second bowl of frame
+				nextAction = Action.EndTurn;
+			}
+		}
+		
+		return nextAction;
+	}
 }
