@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
         try
         {
             scoreDisplay.FillRollScores(rolls);
+            scoreDisplay.FillFrameScores(ScoreMaster.ScoreCumulative(rolls));
         }
         catch
         {
