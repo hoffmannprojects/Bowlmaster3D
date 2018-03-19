@@ -45,44 +45,38 @@ public class ScoreDisplay : MonoBehaviour {
 
     public static string FormatRolls (List <int> rolls)
     {
-        // 1st attempt Tim.
-        //StringBuilder builder = new StringBuilder();
-        //foreach (int roll in rolls)
-        //{
-        //    builder.Append(roll).Append(", ");
-        //}
-        //string output = builder.ToString();
-
-        //string output = "";
-
-        StringBuilder stringBuilder = new StringBuilder();
+        string output = "";
 
         for (int i = 0; i < rolls.Count; i++)
         {
-            string rollConverted = rolls[i].ToString();
+            int roll = output.Length + 1;
 
             // Miss.
             if (rolls[i] == 0)
             {
-                rollConverted = "-";
+                output += "-";
             }
             // Spare.
-            if (
-                (i > 0) && 
-                (i % 2 != 0) && 
-                (rolls[i] + rolls[i - 1] == 10)
-                )
+            else if ((roll % 2 == 0) && (rolls[i] + rolls[i - 1] == 10))
             {
-                rollConverted = "/";
+                output += "/";
             }
-            // Strike.
-            else if ((rolls[i] == 10))
+            // Strike in last frame.
+            else if ((rolls[i] == 10) && (output.Length >= 18))
             {
-                rollConverted = "X ";
+                output += "X";
             }
-            stringBuilder.Append(rollConverted);
+            // Strike in frame 1-9.
+            else if (rolls[i] == 10)
+            {
+                output += "X ";
+            }
+            // Normal roll.
+            else
+            {
+                output += rolls[i].ToString();
+            }
         }
-        string output = stringBuilder.ToString();
         return output;
     }
 }
