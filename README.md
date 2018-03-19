@@ -4,3 +4,6 @@ UCLA Wireframe Shader
 Post Processing Stack-2
     https://github.com/Unity-Technologies/PostProcessing
     
+TODO: 
+- Refactor ActionMaster.cs
+- Further customize and polish game

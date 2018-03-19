@@ -5,21 +5,16 @@ using NUnit.Framework;
 using UnityEngine;
 
 [TestFixture]
-public class ActionMasterTest : MonoBehaviour
+public class ActionMasterTest
 {
     private List<int> bowlResults;
-
-    private ActionMaster.Action tidy = ActionMaster.Action.Tidy;
-    private ActionMaster.Action reset = ActionMaster.Action.Reset;
-    private ActionMaster.Action endTurn = ActionMaster.Action.EndTurn;
-    private ActionMaster.Action endGame = ActionMaster.Action.EndGame;
-
 
     // Happens everytime a test runs.
     [SetUp]
     public void Setup()
     {
-        bowlResults = new List<int>();
+    bowlResults = new List<int>();
+         
     }
 
     // A game consists of 10 frames:
@@ -37,21 +32,21 @@ public class ActionMasterTest : MonoBehaviour
     public void T01oneStrikeReturnsEndTurn()
     {
         bowlResults.Add(10);
-        Assert.AreEqual(endTurn, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.EndTurn, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
     public void T02Bowl8ReturnsTidy()
     {
         bowlResults.Add(8);
-        Assert.AreEqual(tidy, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.Tidy, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
     public void T03Bowl28SpareReturnsEndTurn()
     {
         int[] bowls = { 2, 8 };
-        Assert.AreEqual(endTurn, ActionMaster.NextAction(bowls.ToList()));
+        Assert.AreEqual(ActionMaster.Action.EndTurn, ActionMaster.NextAction(bowls.ToList()));
     }
 
     [Test]
@@ -59,7 +54,7 @@ public class ActionMasterTest : MonoBehaviour
     {
         RollBalls(12, 10);
 
-        Assert.AreEqual(endGame, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.EndGame, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
@@ -67,7 +62,7 @@ public class ActionMasterTest : MonoBehaviour
     {
         RollBalls(20, 0);
 
-        Assert.AreEqual(endGame, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.EndGame, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
@@ -76,7 +71,7 @@ public class ActionMasterTest : MonoBehaviour
         RollBalls(18, 0);
         RollBalls(1, 10);
 
-        Assert.AreEqual(reset, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.Reset, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
@@ -86,7 +81,7 @@ public class ActionMasterTest : MonoBehaviour
         RollBalls(1, 1);
         RollBalls(1, 9);
 
-        Assert.AreEqual(reset, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.Reset, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
@@ -94,7 +89,7 @@ public class ActionMasterTest : MonoBehaviour
     {
         RollBalls(20, 1);
 
-        Assert.AreEqual(endGame, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.EndGame, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
@@ -104,7 +99,7 @@ public class ActionMasterTest : MonoBehaviour
         RollBalls(1, 10);
         RollBalls(1, 1);
 
-        Assert.AreEqual(tidy, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.Tidy, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
@@ -114,7 +109,7 @@ public class ActionMasterTest : MonoBehaviour
         RollBalls(1, 10);
         RollBalls(1, 0);
 
-        Assert.AreEqual(tidy, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.Tidy, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
@@ -123,7 +118,7 @@ public class ActionMasterTest : MonoBehaviour
         RollBalls(18, 1);
         RollBalls(2, 10);
 
-        Assert.AreEqual(reset, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.Reset, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
@@ -133,7 +128,7 @@ public class ActionMasterTest : MonoBehaviour
         RollBalls(1, 10);
         RollBalls(1, 5);
         RollBalls(1, 1);
-        Assert.AreEqual(endTurn, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.EndTurn, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
@@ -141,7 +136,7 @@ public class ActionMasterTest : MonoBehaviour
     {
         RollBalls(18, 1);
         RollBalls(3, 10);
-        Assert.AreEqual(endGame, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.EndGame, ActionMaster.NextAction(bowlResults));
     }
 
     [Test]
@@ -150,7 +145,7 @@ public class ActionMasterTest : MonoBehaviour
         RollBalls(1, 0);
         RollBalls(1, 1);
 
-        Assert.AreEqual(endTurn, ActionMaster.NextAction(bowlResults));
+        Assert.AreEqual(ActionMaster.Action.EndTurn, ActionMaster.NextAction(bowlResults));
     }
 
     private void RollBalls(int ballsToRoll, int pinsHit)

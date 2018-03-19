@@ -82,12 +82,13 @@ public class PinCounter : MonoBehaviour {
 
     void SubmitBowl ()
     {
+        // Two lines need to stay together, to make sure pinsTobowl gets reset.
         int pinsBowled = pinsToBowl - pinsLeftStanding;
         pinsToBowl = pinsLeftStanding;
 
         UpdateDisplay(pinsBowled);
 
-        gameManager.HandleBowl(pinsBowled);
+        gameManager.HandleRoll(pinsBowled);
 
         print("pinsToBowl: " + pinsToBowl);
     }

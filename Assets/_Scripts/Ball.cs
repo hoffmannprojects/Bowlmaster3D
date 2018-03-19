@@ -34,7 +34,11 @@ public class Ball : MonoBehaviour
 
     void MoveStart(float xNudgeAmount) {
         if (! inPlay) {
-            transform.Translate (new Vector3 (xNudgeAmount, 0, 0) ); // Nudge position by xNudgeAmount x-wise.
+            // Nudge position by xNudgeAmount x-wise, but clamp min/max.
+            Vector3 newPosition = rb.position + new Vector3 (xNudgeAmount, 0, 0);
+            newPosition.x = Mathf.Clamp(newPosition.x , - 50f, 50f);
+
+            rb.position = newPosition;
             Debug.Log("startPosition: " + transform.position.x);
         }
     }
