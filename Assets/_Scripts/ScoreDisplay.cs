@@ -52,7 +52,37 @@ public class ScoreDisplay : MonoBehaviour {
         //    builder.Append(roll).Append(", ");
         //}
         //string output = builder.ToString();
-        string output = "";
+
+        //string output = "";
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < rolls.Count; i++)
+        {
+            string rollConverted = rolls[i].ToString();
+
+            // Miss.
+            if (rolls[i] == 0)
+            {
+                rollConverted = "-";
+            }
+            // Spare.
+            if (
+                (i > 0) && 
+                (i % 2 != 0) && 
+                (rolls[i] + rolls[i - 1] == 10)
+                )
+            {
+                rollConverted = "/";
+            }
+            // Strike.
+            else if ((rolls[i] == 10))
+            {
+                rollConverted = "X ";
+            }
+            stringBuilder.Append(rollConverted);
+        }
+        string output = stringBuilder.ToString();
         return output;
     }
 }
