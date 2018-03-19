@@ -23,11 +23,6 @@ public class ScoreDisplay : MonoBehaviour {
 
     public void FillRollScores (List <int> rolls)
     {
-        // 1st attempt Tim.
-        //for (int roll = 0; roll < rolls.Count; roll++)
-        //{
-        //    rollTexts[roll].text = rolls[roll].ToString();
-        //}
         string rollsString = FormatRolls(rolls);
         for (int roll = 0; roll < rollsString.Length; roll++)
         {
@@ -56,8 +51,8 @@ public class ScoreDisplay : MonoBehaviour {
             {
                 output += "-";
             }
-            // Spare.
-            else if ((roll % 2 == 0) && (rolls[i] + rolls[i - 1] == 10))
+            // Spare, including Spare after Strike in last frame.
+            else if (((roll % 2 == 0) || (roll == 21)) && (rolls[i] + rolls[i - 1] == 10))
             {
                 output += "/";
             }
