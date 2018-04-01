@@ -14,6 +14,7 @@ public class PinCounter : MonoBehaviour {
     private Text pinCounterDisplay;
 
     public int pinsHaveSettledThresholdSeconds = 3;
+    public Color updateColor = new Color(255f, 0f, 195f);
 
     // Use this for initialization
     void Start ()
@@ -46,7 +47,7 @@ public class PinCounter : MonoBehaviour {
     {
         pinsLeftStanding = CountStandingPins();
 
-        pinCounterDisplay.color = Color.red;
+        pinCounterDisplay.color = updateColor;
         pinCounterDisplay.text = "scoring";
 
         yield return new WaitForSecondsRealtime(pinsHaveSettledThresholdSeconds);

@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
         }
         catch
         {
-            Debug.LogWarning("scoreDisplay.FillRollScores() causes issue.");
+            Debug.LogWarning("scoreDisplay not functioning.");
         }
 
         if (ActionMaster.NextAction(rolls) == ActionMaster.Action.Tidy)
