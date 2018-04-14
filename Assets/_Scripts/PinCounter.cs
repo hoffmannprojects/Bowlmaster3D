@@ -22,6 +22,7 @@ public class PinCounter : MonoBehaviour {
         pinCounterDisplay = GameObject.Find("PinCounter").GetComponent<Text>();
 
         Reset();
+        ResetDisplay();
     }
 
     // Update is called once per frame
@@ -46,7 +47,6 @@ public class PinCounter : MonoBehaviour {
     {
         pinsLeftStanding = CountStandingPins();
 
-        pinCounterDisplay.color = Color.red;
         pinCounterDisplay.text = "scoring";
 
         yield return new WaitForSecondsRealtime(pinsHaveSettledThresholdSeconds);
@@ -86,23 +86,20 @@ public class PinCounter : MonoBehaviour {
         int pinsBowled = pinsToBowl - pinsLeftStanding;
         pinsToBowl = pinsLeftStanding;
 
-        UpdateDisplay(pinsBowled);
+        ResetDisplay();
 
         gameManager.HandleRoll(pinsBowled);
 
         print("pinsToBowl: " + pinsToBowl);
     }
 
-    private void UpdateDisplay (int pinsBowled)
+    private void ResetDisplay ()
     {
-        pinCounterDisplay.text = pinsBowled.ToString();
-        pinCounterDisplay.color = Color.green;
+        pinCounterDisplay.text = "";
     }
 
     public void Reset ()
     {
         pinsToBowl = 10;
-        pinCounterDisplay.text = "0";
-        pinCounterDisplay.color = Color.gray;
     }
 }
