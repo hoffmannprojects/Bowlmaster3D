@@ -72,6 +72,7 @@ public class ScoreDisplay : MonoBehaviour {
                 output += rolls[i].ToString();
             }
         }
+        Debug.Log("FormatRolls output: " + output);
         return output;
     }
 }
